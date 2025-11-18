@@ -1,15 +1,38 @@
 flowchart TD
-    A[Start] --> B[Input n]
-    B --> C{n <= 1?}
-    C -- Yes --> R1[Return False]
-    C -- No --> D{n == 2?}
-    D -- Yes --> R2[Return True]
-    D -- No --> E{n is even?}
-    E -- Yes --> R3[Return False]
-    E -- No --> F[Set i = 3]
-    F --> G{i * i <= n?}
-    G -- No --> R4[Return True]
-    G -- Yes --> H{n % i == 0?}
-    H -- Yes --> R5[Return False]
-    H -- No --> I[Set i = i + 2]
-    I --> G
+    Start([Start]) --> CheckArg{argc > 1?}
+    CheckArg -- Yes --> TryParseCmd[/Call _parse_int(sys.argv[1])\]
+    TryParseCmd -- Success --> ParityCheck{is_even(num)?}
+    TryParseCmd -- ValueError --> PrintCmdErr([Print "Please provide a valid integer..."]) --> ExitErr([Exit with code 1])
+    CheckArg -- No --> PromptLoop([Prompt user: "Enter an integer:"])
+    PromptLoop --> TryParseInput[/Call _parse_int(input)\]
+    TryParseInput -- Success --> ParityCheck
+    TryParseInput -- ValueError --> PrintInvalid([Print "Invalid input. Please enter a whole number..."]) --> PromptLoop
+
+    ParityCheck -- True --> Result["even"]
+    ParityCheck -- False --> Result["odd"]
+
+    Result --> NegCheck{num < 0?}
+    NegCheck -- Yes --> Output["append ' (negative input)'"]
+    NegCheck -- No --> Output
+
+    Output --> PrintFinal([Print final result])
+    PrintFinal --> End([End])
+```flowchart TD
+    Start([Start]) --> CheckArg{argc > 1?}
+    CheckArg -- Yes --> TryParseCmd[/Call _parse_int(sys.argv[1])\]
+    TryParseCmd -- Success --> ParityCheck{is_even(num)?}
+    TryParseCmd -- ValueError --> PrintCmdErr([Print "Please provide a valid integer..."]) --> ExitErr([Exit with code 1])
+    CheckArg -- No --> PromptLoop([Prompt user: "Enter an integer:"])
+    PromptLoop --> TryParseInput[/Call _parse_int(input)\]
+    TryParseInput -- Success --> ParityCheck
+    TryParseInput -- ValueError --> PrintInvalid([Print "Invalid input. Please enter a whole number..."]) --> PromptLoop
+
+    ParityCheck -- True --> Result["even"]
+    ParityCheck -- False --> Result["odd"]
+
+    Result --> NegCheck{num < 0?}
+    NegCheck -- Yes --> Output["append ' (negative input)'"]
+    NegCheck -- No --> Output
+
+    Output --> PrintFinal([Print final result])
+    PrintFinal --> End([End])
