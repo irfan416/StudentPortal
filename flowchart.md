@@ -1,3 +1,4 @@
+```mermaid
 flowchart TD
     Start([Start]) --> CheckArg{argc > 1?}
     CheckArg -- Yes --> TryParseCmd[/Call _parse_int(sys.argv[1])\]
