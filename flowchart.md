@@ -1,23 +1,18 @@
 ```mermaid
 flowchart TD
-    A([Start]) --> B{argc > 1?}
-    B -- Yes --> C[/_parse_int(sys.argv[1])\]
-    C -- Success --> D{is_even(num)?}
-    C -- ValueError --> E([Print "Please provide a valid integer..."]) --> F([Exit with code 1])
+    A([Start]) --> B{Argument provided?}
+    B -- Yes --> C[Parse command-line input]
+    C -- Valid --> D{Is number even?}
+    C -- Invalid --> E[Print error message] --> F([Exit])
 
-    B -- No --> G([Prompt user: "Enter an integer:"])
-    G --> H[/_parse_int(input)\]
-    H -- Success --> D
-    H -- ValueError --> I([Print "Invalid input. Please enter a whole number..."]) --> G
+    B -- No --> G[Prompt user for input]
+    G --> H[Parse user input]
+    H -- Valid --> D
+    H -- Invalid --> I[Print invalid input] --> G
 
-    D -- True --> J["result = 'even'"]
-    D -- False --> K["result = 'odd'"]
+    D -- True --> J["even"]
+    D -- False --> K["odd"]
 
-    J --> L{num < 0?}
+    J --> L{Negative?}
     K --> L
-    L -- Yes --> M["append ' (negative input)'"]
-    L -- No --> M
-
-    M --> N([Print result])
-    N --> O([End])
-```
+    L -- Yes --> M[Append '(n]()
