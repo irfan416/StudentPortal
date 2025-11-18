@@ -5,14 +5,19 @@ flowchart TD
     C -- Valid --> D{Is number even?}
     C -- Invalid --> E[Print error message] --> F([Exit])
 
-    B -- No --> G[Prompt user for input]
+    B -- No --> G[Prompt for input]
     G --> H[Parse user input]
     H -- Valid --> D
     H -- Invalid --> I[Print invalid input] --> G
 
-    D -- True --> J["even"]
-    D -- False --> K["odd"]
+    D -- True --> J[Set result to EVEN]
+    D -- False --> K[Set result to ODD]
 
-    J --> L{Negative?}
+    J --> L{Negative number?}
     K --> L
-    L -- Yes --> M[Append '(n]()
+    L -- Yes --> M[Mark as negative]
+    L -- No --> M
+
+    M --> N[Print result]
+    N --> O([End])
+```
